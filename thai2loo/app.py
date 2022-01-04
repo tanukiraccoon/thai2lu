@@ -18,10 +18,10 @@ def loo(text):
                   'm': ['ม', 'หม'], 'n': ['น', 'หน'], 'ŋ': ['ง', 'หง'], 'pʰ': ['พ', 'ผ'], 'p': 'ป', 'r': ['ร', 'หร'], 's': ['ซ', 'ส'], 'tʰ': ['ท', 'ถ'],  'tɕʰ': ['ช', 'ฉ'], 'tɕ': 'จ', 't': 'ต',  'w': ['ว', 'หว'], 'ʔ': 'อ'}
     # สระเดี่ยวเสียงสั้น
     vowels_short_mono = {'a': ['◌ะ', '◌ั'], 'e': ['เ◌ะ', 'เ◌็◌'], 'ɛ': ['แ◌ะ', 'แ◌็◌'], 'i': '◌ิ',
-                         'o': ['โ◌ะ', ''], 'ɔ': ['เ◌าะ', '◌็อ'], 'u': '◌ุ', 'ɯ': '◌ึ', 'ɤ': 'เ◌อะ'}
+                         'o': ['โ◌ะ', ''], 'ɔ': ['เ◌าะ', '◌็อ'], 'u': 'ุ', 'ɯ': '◌ึ', 'ɤ': 'เ◌อะ'}
     # สระเดี่ยวเสียงยาว
     vowels_long_mono = {'aː': 'า', 'e': 'เ◌', 'ɛː': 'แ', 'iː': '◌ี',
-                        'oː': 'โ', 'ɔː': 'อ', 'uː': '◌ู', 'ɯː': ['◌ือ', '◌ื'], 'ɤː': ['เ◌อ', 'เ◌ิ◌']}
+                        'oː': 'โ', 'ɔː': 'อ', 'uː': 'ู', 'ɯː': ['◌ือ', '◌ื'], 'ɤː': ['เ◌อ', 'เ◌ิ◌']}
     # สระประสม
     vowels_dip = {'ia': 'เ◌ีย', 'ua': ['◌ัว', 'ว'], 'ɯa': 'เ◌ือ'}
     # สระเกิน
@@ -39,15 +39,17 @@ def loo(text):
     l = re.findall(regex, text)
     # print('Word: ', l)
     l = thai2loo_l(l, vowels_dip, vowels_long_mono, vowels_short_mono)
+    l = cvRules(ipa2thai(l, ipa))
     # print("Last: ", l)
     # print("ipa: ", ipa2thai(l, ipa))
     # print("cvRule: ", cvRules(ipa2thai(l, ipa)))
     r = thai2loo_f(r)
+    r = cvRules(ipa2thai(r, ipa))
     # print('First:', r)
     # print("ipa: ", ipa2thai(r, ipa))
     # print("cvRule: ", cvRules(ipa2thai(r, ipa)))
     # regex.sub(lambda match: transliterate[match.group()], ls_to_str)
-    # return ipa2thai(r, ipa)
+    return (r, l)
 
 
 def ipa2thai(text, dictionary):
@@ -69,10 +71,10 @@ def thai2loo_l(text, vd, vlm, vsm):
         # สระเดี่ยวเสียงสั้นเปลี่ยนเป็นสระอุ
         if char in short:
             index = text.index(char)
-            text[index] = 'uː'
+            text[index] = 'u'
         if char in long:
             index = text.index(char)
-            text[index] = 'u'
+            text[index] = 'uː'
     return text
 
 
@@ -92,9 +94,16 @@ def cvRules(text):
         # อักษรต่ำ
         if text[-1] in ['-', '้', '๊']:
             text[0] = text[0][0]
+            # รูปโทเสียงโทเขียนด้วยอักษรต่ำรูปเอกเสียงโท
+            if text[-1] == '้':
+                text[-1] = '่'
         # อักษรสูง
         else:
             text[0] = text[0][1]
+            # รูปสามัญเสียงจัตวาไม่ต้องใส่วรรณยุกต์
+            if text[-1] == '๋':
+                text[-1] = '-'
+
     # สระท้าย
     if len(text[-2]) > 1:
         text[-2] = text[-2][0]
@@ -104,11 +113,15 @@ def cvRules(text):
     return text
 
 
-text = "สา"
+text = input("พิมพ์ข้อความที่ต้องการแปลงเป็นภาษาลู: ")
 text = th2ipa(text)
 text = re.split('\.| ', text)
 text.pop(-1)
 print("IPA: ", text)
 for syllable in text:
-    tran = loo(syllable)
-    # print("Result: ", tran)
+    r, l = loo(syllable)
+    str1 = ''
+    str2 = ''
+    str1 = str1.join(r)
+    str2 = str2.join(l)
+    print(str1, str2)
