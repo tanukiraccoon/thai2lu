@@ -17,19 +17,20 @@
 # test1([0, 9, 11, 100], 0)
 # test1([10, 20, 30, 40], 99)
 
-# def test2(text):
-#     dict = {}
-#     for char in text:
-#         if char in dict:
-#             dict[char] += 1
-#         else:
-#             dict[char] = 1
-#     result = max(dict, key=dict.get)
-#     print(result * dict[result])
+def test2(text):
+    dict = {}
+    for char in text:
+        if char in dict:
+            dict[char] += 1
+        else:
+            dict[char] = 1
+    result = max(dict, keไy=dict.get)
+    print(dict.get)
+    print(result * dict[result])
 
 
-# test2('abbc')
-# test2('aaabcc')
-# test2('abcde')
-# test2('abbcccddddeeeee')
-# test2('aaabaa')
+test2('abbc')
+test2('aaabcc')
+test2('abcde')
+test2('abbcccddddeeeee')
+test2('aaabaa')
