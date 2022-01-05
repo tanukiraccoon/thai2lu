@@ -15,21 +15,22 @@ import re
 def loo(text):
     # พยัญชนะ
     consonants = {'b': 'บ', 'd': 'ด', 'f': ['ฟ', 'ฝ'], 'h': ['ฮ', 'ห'], 'j': ['ย', 'หย'], 'kʰ': ['ค', 'ข'], 'k': 'ก', 'l': ['ล', 'หล'],
-                  'm': ['ม', 'หม'], 'n': ['น', 'หน'], 'ŋ': ['ง', 'หง'], 'pʰ': ['พ', 'ผ'], 'p': 'ป', 'r': ['ร', 'หร'], 's': ['ซ', 'ส'], 'tʰ': ['ท', 'ถ'],  'tɕʰ': ['ช', 'ฉ'], 'c': 'จ', 't': 'ต',  'w': ['ว', 'หว'], 'ʔ': 'อ'}
+                  'm': ['ม', 'หม'], 'n': ['น', 'หน'], 'ŋ': ['ง', 'หง'], 'pʰ': ['พ', 'ผ'], 'p': 'ป', 'r': ['ร', 'หร'], 's': ['ซ', 'ส'], 'tʰ': ['ท', 'ถ'],  'cʰ': ['ช', 'ฉ'], 'c': 'จ', 't': 'ต',  'w': ['ว', 'หว'], 'ʔ': 'อ'}
     # สระเดี่ยวเสียงสั้น
-    vowels_short_mono = {'a': ['ะ', 'ั'], 'e': ['เ◌ะ', 'เ◌็◌'], 'ɛ': ['แ◌ะ', 'แ◌็◌'], 'i': 'ิ',
-                         'o': ['โ◌ะ', ''], 'ɔ': ['เ◌าะ', '◌็อ'], 'u': 'ุ', 'ɯ': 'ึ', 'ɤ': 'เ◌อะ'}
+    vowels_short_mono = {'a': ['ะ', 'ั'], 'e': ['เะ', 'เ็'], 'ɛ': ['แะ', 'แ็'], 'i': 'ิ',
+                         'o': ['โ◌ะ', ''], 'ɔ': ['เาะ', '็อ'], 'u': 'ุ', 'ɯ': 'ึ', 'ɤ': 'เอะ'}
     # สระเดี่ยวเสียงยาว
     vowels_long_mono = {'aː': 'า', 'e': 'เ◌', 'ɛː': 'แ', 'iː': 'ี',
-                        'oː': 'โ', 'ᴐː': 'อ', 'uː': 'ู', 'ɯː': ['ือ', 'ื'], 'ɤː': ['เ◌อ', 'เ◌ิ◌']}
+                        'oː': 'โ', 'ᴐː': 'อ', 'uː': 'ู', 'ɯː': ['ือ', 'ื'], 'ɤː': ['เอ', 'เิ']}
     # สระประสม
-    vowels_dip = {'ia': 'เ◌ีย', 'ua': ['◌ัว', 'ว'], 'ɯa': 'เ◌ือ'}
+    vowels_dip = {'iːa': 'เีย', 'ua': ['ัว', 'ว'], 'ɯa': 'เือ'}
     # สระเกิน
-    # vowels_syl = {'aj': 'ไ◌','aw':'เ◌า','ew': 'เ◌็ว','ɛw':'แ◌็ว','uj':}
+    vowels_syl = {'uːa': ['ัว', 'ว'], 'aj': 'ไ',
+                  'aw': 'เา', 'ew': 'เ็ว', 'ɛw': 'แ็ว'}
     # วรรณยุกต์
     tones = {'1': '', '2': '่', '3': '้', '4': '๊', '5': '๋'}
     # Merge Dictionary
-    ipa = {**consonants, **vowels_dip, **
+    ipa = {**consonants, **vowels_syl, **vowels_dip, **
            vowels_long_mono, **vowels_short_mono, **tones}
     # regex = re.compile('|'.join(map(re.escape, ipa)))
     regex = '|'.join(list(ipa.keys()))
@@ -45,7 +46,7 @@ def loo(text):
     print("Step 4 : ", first)
     print("==========")
     # print('Word: ', l)  # ดอก ['d', 'ᴐː', 'k', '2']
-    last = back_loo(last, vowels_dip, vowels_long_mono,
+    last = back_loo(last, vowels_syl, vowels_dip, vowels_long_mono,
                     vowels_short_mono)  # ดูก ['d', 'uː', 'k', '2']
     print("Step 2 : ", last)
     last = ipa2thai(last, ipa)
@@ -79,10 +80,10 @@ def front_loo(text):  # pass
     return text
 
 
-def back_loo(text, vd, vlm, vsm):
+def back_loo(text, vs, vd, vlm, vsm):
     # เปลี่ยนสระของคำเป็นสระ "อุ" หรือ "อู"
     short = list(vsm.keys())
-    long = list(vd.keys()) + list(vlm.keys())
+    long = list(vs.keys()) + list(vd.keys()) + list(vlm.keys())
     for char in text:
         # สระเดี่ยวเสียงสั้นเปลี่ยนเป็นสระอุ
         if char in short:
@@ -141,8 +142,10 @@ def front_rules(text):
     if len(text[-3]) > 1 and len(text) > 3:
         text[-3] = text[-3][1]
     # สลับตำแหน่งสระ
-    if text[1] == 'แ':
-        text[0], text[1] = text[1], text[0]
+    # if text[1][0] in ['แ', 'เ']:
+    #     text[0], text[1] = text[1][0], text[1].replace(text[1][0], text[0])
+    if text[-2] in ["า", "ะ"]:
+        text[-2], text[-1] = text[-1], text[-2]
     return text
 
 
