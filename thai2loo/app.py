@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from ml_spellio import use_model  # import การเรียกใช้ model
-from word_alignment import alignment_en as en  # import ตัวตัดคำภาษาอังกฤษ
-from back_alignment import reverseChar  # import ตัวตัดคำภาษาอังกฤษ
+from loo import use_loo
 
 app = Flask(__name__)
 
@@ -15,14 +13,10 @@ def index():
 def process():
     name = request.form['name']
     if name:
-        words = name.lower()
-        result = use_model(words)
-        result = reverseChar(result)
-        if words.find(',') > -1:
-            words = words.replace(',', '')
-#         newName = words + " " + result
+        words = name
+        result = use_loo(words)
         newName = result
-        return jsonify({'name': newName, 'searchDict': words})
+        return jsonify({'name': newName})
     return jsonify({'error': 'Missing data!'})
 
 

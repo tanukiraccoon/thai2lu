@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Spellio</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        /* Navigation*/
+        .navbar {
+            background-color: transparent;
+        }
+
+        .scrolling-navbar {
+            transition: background .5s ease-in-out, padding .5s ease-in-out;
+        }
+
+        .top-nav-collapse {
+            background-color: #34456a;
+        }
+
+        footer.page-footer {
+            background-color: #34456a;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .navbar {
+                background-color: #34456a;
+            }
+        }
+
+        /* Necessary for full page carousel*/
+        html,
+        body,
+        .view {
+            height: 102%;
+        }
+
+        /* Carousel*/
+        .carousel,
+        .carousel-item,
+        .carousel-item.active {
+            height: 100%;
+        }
+
+        .carousel-inner {
+            height: 100%;
+        }
+
+        .carousel .carousel-item video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* .active-pink-2 input[type=text]:focus:not([readonly]) {
+                border-bottom: 1px solid #f48fb1;
+                box-shadow: 0 1px 0 0 #f48fb1;
+            } */
+
+        .active-pink input[type=text] {
+            border-bottom: 1px solid #f48fb1;
+            box-shadow: 0 1px 0 0 #f48fb1;
+        }
+
+        .active-pink .fa,
+        .active-pink-2 .fa {
+            color: #f48fb1;
+        }
+
+        #search {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark scrolling-navbar fixed-top">
+
+        <div class="container">
+
+            <!-- Brand -->
+            <a class="navbar-brand" href="#" onclick="change();"><strong>Thai2Lu</strong></a>
+            <!-- Brand -->
+
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!--Carousel Wrapper-->
+    <div id="video-carousel-examples" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <!--Slides-->
+            <div class="carousel-item active">
+                <!--Mask-->
+                <div class="view">
+                    <!--Video source-->
+                    <video autoplay loop playsinline muted>
+                        <source src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
+                    </video>
+                    <!-- Carousel content -->
+                    <div class="full-bg-img flex-center mask rgba-indigo-light white-text">
+                        <ul class="animated fadeInUp col-md-12 list-unstyled list-inline">
+                            <li>
+                                <h1 class="font-weight-bold text-uppercase" id='spellio'>Thai2Lu</h1>
+                            </li>
+                            <li>
+                                <p class="font-weight-bold py-4" id='seq2seq'>โปรแกรมแปลงภาษาไทยเป็นภาษาลู</p>
+                            </li>
+
+                            <li>
+                                <!-- Search form -->
+                                <form class="form-inline d-flex justify-content-center">
+                                    <input class="form-control form-control-md mr-3 w-50" id="wordInput" type="text"
+                                        placeholder="ระบุคำที่ต้องการค้นหา" aria-label="Search" pattern="^[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮะัาำิีึืฺุูเแโใไๅ็่้๊๋์]+$+$"
+                                        autocomplete="off" required>
+                                    <!-- <i class="fas fa-search" aria-hidden="true"></i>
+                                    <button type='submit' class="btn btn-default" style="display:none;"></button> -->
+                                </form>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-center">
+                                    <!-- <div id="successAlert" class="alert alert-success w-25" role="alert"
+                                        style="display:none;"></div> -->
+                                    <div id="successAlert" class="alert alert-success" role="alert"
+                                        style="display:none; margin-right:15px">
+                                        <h4 class="alert-heading">ผลลัพธ์</h4>
+                                        <h5 id="result"></h5>
+                                        <hr>
+                                        <p class="mb-0">ยังมีข้อผิดพลาดอยู่มาก โปรดใช้อย่างระมัดระวัง</p>
+                                    </div>
+                                    <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;">
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--/Mask-->
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Carousel Wrapper-->
+    <!-- Footer -->
+    <footer class="page-footer text-center text-md-left">
+
+        <!--Copyright-->
+        <div class="footer-copyright text-center">
+            <div class="container-fluid py-3">
+                © 2022 Copyright: <a href="#"> Thai2Lu </a>
+            </div>
+        </div>
+        <!--Copyright-->
+    </footer>
+    <!-- Footer -->
+
+
+
+
+    <!-- JQuery -->
+    <script type=" text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('form').on('submit', function (event) {
+                $.ajax({
+                    data: {
+                        name: $('#wordInput').val()
+                    },
+                    type: 'POST',
+                    url: '/process'
+                })
+                    .done(function (data) {
+                        if (data.error) {
+                            $('#errorAlert').text(data.error).show();
+                            $('#successAlert').hide();
+                          
+                        }
+                        else {
+                            $('#successAlert').show('slow');
+                            $('#result').text(data.name);
+                            $('#errorAlert').hide();
+                            $('#spellio').hide();
+                            $('#seq2seq').hide();
+                           
+                            // $("#spellio").css("margin-top","324px");
+                            $("#wordInput").css("margin-top", "50px");
+
+                        }
+                    });
+
+                event.preventDefault();
+            });
+
+        });
+        function change() {
+            $('#successAlert').hide('slow');
+            $('#errorAlert').hide();
+            $('#spellio').show();
+            $('#seq2seq').show();
+          
+            // $("#spellio").css("margin-top","324px");
+            $("#wordInput").css("margin-top", "0");
+        }
+    </script>
+
+</body>
+
+</html>

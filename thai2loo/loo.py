@@ -206,9 +206,9 @@ def back_rules(text, vsm):
     return text
 
 
-while(True):
+def use_loo(text):
     try:
-        text = input("พิมพ์ข้อความที่ต้องการแปลงเป็นภาษาลู: ")
+        # text = input("พิมพ์ข้อความที่ต้องการแปลงเป็นภาษาลู: ")
         text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
         text = re.split('\.| ', text)  # แบ่งคำโดยแปลงเป็น lists
         text.pop(-1)
@@ -224,5 +224,5 @@ while(True):
             x += str1 + ' ' + str2 + ' '
             print(x)
     except:
-        print("กรุณาตรวจสอบตัวสะกดอีกครั้ง")
-        continue
+        x = "กรุณาพิมพ์คำศัพท์ให้ถูกต้อง"
+    return (x)
