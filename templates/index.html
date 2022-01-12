@@ -1,240 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>Thai2Lu</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      rel="stylesheet"
+    />
     <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
-
-    <style type="text/css">
-        /* Navigation*/
-        .navbar {
-            background-color: transparent;
-        }
-
-        .scrolling-navbar {
-            transition: background .5s ease-in-out, padding .5s ease-in-out;
-        }
-
-        .top-nav-collapse {
-            background-color: #34456a;
-        }
-
-        footer.page-footer {
-            background-color: #34456a;
-        }
-
-        @media only screen and (max-width: 768px) {
-            .navbar {
-                background-color: #34456a;
-            }
-        }
-
-        /* Necessary for full page carousel*/
-        html,
-        body,
-        .view {
-            height: 102%;
-        }
-
-        /* Carousel*/
-        .carousel,
-        .carousel-item,
-        .carousel-item.active {
-            height: 100%;
-        }
-
-        .carousel-inner {
-            height: 100%;
-        }
-
-        .carousel .carousel-item video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* .active-pink-2 input[type=text]:focus:not([readonly]) {
-                border-bottom: 1px solid #f48fb1;
-                box-shadow: 0 1px 0 0 #f48fb1;
-            } */
-
-        .active-pink input[type=text] {
-            border-bottom: 1px solid #f48fb1;
-            box-shadow: 0 1px 0 0 #f48fb1;
-        }
-
-        .active-pink .fa,
-        .active-pink-2 .fa {
-            color: #f48fb1;
-        }
-
-        #search {
-            color: white;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Navbar -->
-
-    <nav class="navbar navbar-expand-lg navbar-dark scrolling-navbar fixed-top">
-
-        <div class="container">
-
-            <!-- Brand -->
-            <a class="navbar-brand" href="#" onclick="change();"><strong>Thai2Lu</strong></a>
-            <!-- Brand -->
-
-        </div>
-    </nav>
-    <!-- Navbar -->
-
-    <!--Carousel Wrapper-->
-    <div id="video-carousel-examples" class="carousel slide carousel-fade" data-ride="carousel">
-        <div class="carousel-inner" role="listbox">
-            <!--Slides-->
-            <div class="carousel-item active">
-                <!--Mask-->
-                <div class="view">
-                    <!--Video source-->
-                    <video autoplay loop playsinline muted>
-                        <source src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
-                    </video>
-                    <!-- Carousel content -->
-                    <div class="full-bg-img flex-center mask rgba-indigo-light white-text">
-                        <ul class="animated fadeInUp col-md-12 list-unstyled list-inline">
-                            <li>
-                                <h1 class="font-weight-bold text-uppercase" id='spellio'>Thai2Lu</h1>
-                            </li>
-                            <li>
-                                <p class="font-weight-bold py-4" id='seq2seq'>โปรแกรมแปลงภาษาไทยเป็นภาษาลู</p>
-                            </li>
-
-                            <li>
-                                <!-- Search form -->
-                                <form class="form-inline d-flex justify-content-center">
-                                    <input class="form-control form-control-md mr-3 w-50" id="wordInput" type="text"
-                                        placeholder="ระบุคำที่ต้องการค้นหา" aria-label="Search" pattern="^[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮะัาำิีึืฺุูเแโใไๅ็่้๊๋์]+$"
-                                        autocomplete="off" required>
-                                    <!-- <i class="fas fa-search" aria-hidden="true"></i>
-                                    <button type='submit' class="btn btn-default" style="display:none;"></button> -->
-                                </form>
-                            </li>
-                            <li>
-                                <div class="d-flex justify-content-center">
-                                    <!-- <div id="successAlert" class="alert alert-success w-25" role="alert"
-                                        style="display:none;"></div> -->
-                                    <div id="successAlert" class="alert alert-success" role="alert"
-                                        style="display:none; margin-right:15px">
-                                        <h4 class="alert-heading">ผลลัพธ์</h4>
-                                        <h5 id="result"></h5>
-                                        <hr>
-                                        <p class="mb-0">ยังมีข้อผิดพลาดอยู่มาก โปรดใช้อย่างระมัดระวัง</p>
-                                    </div>
-                                    <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!--/Mask-->
-            </div>
-        </div>
-    </div>
-
-
-
-    <!--Carousel Wrapper-->
-    <!-- Footer -->
-    <footer class="page-footer text-center text-md-left">
-
-        <!--Copyright-->
-        <div class="footer-copyright text-center">
-            <div class="container-fluid py-3">
-                © 2022 Copyright: <a href="#"> Thai2Lu </a>
-            </div>
-        </div>
-        <!--Copyright-->
-    </footer>
-    <!-- Footer -->
-
-
-
-
+    <link
+      href="https://fonts.googleapis.com/css?family=Prompt:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <!-- Animate CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!-- Swup -->
+    <script defer src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
+    <script
+      defer
+      type="text/javascript"
+      src="{{ url_for('static',filename='scripts/main.js') }}"
+    ></script>
     <!-- JQuery -->
-    <script type=" text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-    <script>
-        $(document).ready(function () {
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <!-- Custom CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/main.css') }}"
+    />
 
-            $('form').on('submit', function (event) {
-                $.ajax({
-                    data: {
-                        name: $('#wordInput').val()
-                    },
-                    type: 'POST',
-                    url: '/process'
-                })
-                    .done(function (data) {
-                        if (data.error) {
-                            $('#errorAlert').text(data.error).show();
-                            $('#successAlert').hide();
-                          
-                        }
-                        else {
-                            $('#successAlert').show('slow');
-                            $('#result').text(data.name);
-                            $('#errorAlert').hide();
-                            $('#spellio').hide();
-                            $('#seq2seq').hide();
-                           
-                            // $("#spellio").css("margin-top","324px");
-                            $("#wordInput").css("margin-top", "50px");
+    <title>TNK Project</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-raccoon-japan-justicon-flat-justicon.png"
+    />
+  </head>
 
-                        }
-                    });
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <!-- Container wrapper -->
+      <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand mb-1" href="/index.html"
+          ><b>Thai2Lu</b><span class="h6"> by TNK Project</span></a
+        >
 
-                event.preventDefault();
-            });
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarButtons"
+          aria-controls="navbarButtons"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
 
-        });
-        function change() {
-            $('#successAlert').hide('slow');
-            $('#errorAlert').hide();
-            $('#spellio').show();
-            $('#seq2seq').show();
-          
-            // $("#spellio").css("margin-top","324px");
-            $("#wordInput").css("margin-top", "0");
-        }
-    </script>
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarButtons">
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto"></ul>
+          <!-- Left links -->
 
-</body>
+          <div class="d-flex align-items-center">
+            <!-- Facebook -->
+            <a
+              class="btn px-1 me-2"
+              href="https://facebook.com/tanukiraccoon"
+              role="button"
+              ><i class="fab fa-facebook text-light"></i
+            ></a>
+            <!-- Youtube -->
+            <a
+              class="btn px-1 me-2"
+              href="https://youtube.com/channel/UC--PcIOsIfYRHk494MvFfkg"
+              role="button"
+              ><i class="fab fa-youtube text-light"></i
+            ></a>
+            <!-- Steam -->
+            <a
+              class="btn px-1 me-2"
+              href="https://steamcommunity.com/id/tanukiraccoon"
+              role="button"
+              ><i class="fab fa-steam text-light"></i
+            ></a>
+            <!-- Github -->
+            <a
+              class="btn px-1"
+              href="https://github.com/tanukiraccoon"
+              role="button"
+              ><i class="fab fa-github text-light"></i
+            ></a>
+          </div>
+        </div>
+        <!-- Collapsible wrapper -->
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- End Navbar -->
 
+    <div class="container">
+      <h1 class="text-center text-light">Thai2Lu</h1>
+      <h2 class="text-center text-light">โปรแกรมแปลงภาษาไทยเป็นภาษาลู</h2>
+
+      <!-- Search form -->
+      <form class="d-flex justify-content-center h-100 py-5">
+        <div class="searchbar shadow-lg">
+          <input
+            type="text"
+            class="search_input"
+            id="wordInput"
+            placeholder="ระบุคำที่ต้องการค้นหา..."
+            aria-label="Search"
+            pattern="^[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮะัาำิีึืฺุูเแโใไๅ็่้๊๋์]+$"
+            autocomplete="off"
+            required
+          />
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </form>
+
+      <div class="d-flex justify-content-center">
+        <div
+          id="successAlert"
+          class="alert alert-success"
+          role="alert"
+          style="display: none"
+        >
+          <h4 class="alert-heading">ผลลัพธ์</h4>
+          <h5 id="result"></h5>
+          <hr />
+          <p class="mb-0">ยังมีข้อผิดพลาดอยู่มาก โปรดใช้อย่างระมัดระวัง</p>
+          <ul>
+            <li>
+              V.1.0 releases date: 07/01/21
+              <ul>
+                <li>ปล่อยเวอร์ชันแรก</li>
+                <li>
+                  บัค: วรรณยุกต์วางตำแหน่งผิดพลาด, คำควบกล้ำ กว คว
+                  ไม่สามารถแปลงเป็นลูได้อย่างถูกต้อง
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div
+          id="errorAlert"
+          class="alert alert-danger"
+          role="alert"
+          style="display: none"
+        ></div>
+      </div>
+    </div>
+    <!-- End Container -->
+
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-lg-start fixed-bottom">
+      <!-- Copyright -->
+      <div class="text-center p-3 text-light">
+        © 2022 Copyright:
+        <a
+          class="text-light rm-link-url font-weight-bold"
+          href="https://tanukishop.net/"
+          ><b>Tanuki Raccoon</b></a
+        >
+      </div>
+      <!-- Copyright -->
+    </footer>
+
+    <!-- Bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
