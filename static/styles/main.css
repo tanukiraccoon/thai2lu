@@ -1,7 +1,7 @@
 body {
   font-family: "Prompt", sans-serif;
   min-height: 100vh;
-  padding-top: 300px;
+  padding-top: 80px;
   padding-bottom: 80px;
   background: rgb(2, 0, 36);
   background: linear-gradient(
@@ -10,8 +10,6 @@ body {
     rgba(151, 103, 223, 1) 0%,
     rgba(0, 212, 255, 1) 100%
   );
-  overflow: scroll;
-  overflow-x: hidden;
 }
 
 .transition-fade {
@@ -29,7 +27,9 @@ html.is-animating .transition-fade {
 .searchbar {
   margin-bottom: auto;
   margin-top: auto;
-  height: 60px;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 50px;
   background-color: white;
   border-radius: 30px;
   padding: 10px;
@@ -37,18 +37,18 @@ html.is-animating .transition-fade {
 
 .search_input {
   color: black;
+  width: 90%;
   border: 0;
   outline: 0;
   background: none;
-  width: 450px;
-  caret-color: transparent;
-  line-height: 35px;
-  transition: width 0.4s linear;
+  display: inline-flex;
+  caret-color: black;
+  line-height: 30px;
 }
 
 .search_icon {
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
   float: right;
   display: flex;
   justify-content: center;
