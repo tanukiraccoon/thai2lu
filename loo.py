@@ -161,8 +161,7 @@ def front_rules(text, vsm):
             text[-3] = 'เ'
         else:
             text[-3] = text[-3][1]
-    if text[1] == ' ':
-        text.pop(1)
+
     # สลับตำแหน่งวรณยุกต์
     text.insert(2, text[-1])
     text.pop(-1)
@@ -174,7 +173,9 @@ def front_rules(text, vsm):
         text[-2], text[-1] = text[-1], text[-2]
     elif text[1] in ["า", "ะ", "อ", "ว"]:
         text[1], text[2] = text[2], text[1]
-
+    # สระโอะไม่มีรูป
+    if text[1] == ' ':
+        text.pop(1)
     return text
 
 
