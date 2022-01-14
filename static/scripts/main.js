@@ -8,11 +8,11 @@ $(document).ready(function () {
       url: "/process",
     }).done(function (data) {
       if (data.error) {
-        $("#errorAlert").text(data.error).show();
+        $("#errorAlert").show();
         $("#successAlert").hide();
       } else {
-        $("#successAlert").show("slow");
-        $("#result").text(data.name);
+        $("#successAlert").show();
+        $("#result").text(data.result);
         $("#errorAlert").hide();
       }
     });
@@ -20,8 +20,3 @@ $(document).ready(function () {
     event.preventDefault();
   });
 });
-function change() {
-  $("#successAlert").hide("slow");
-  $("#errorAlert").hide();
-  $("#wordInput").css("margin-top", "0");
-}

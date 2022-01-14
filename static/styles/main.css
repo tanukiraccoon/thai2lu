@@ -59,5 +59,8 @@ html.is-animating .transition-fade {
 }
 
 #successAlert {
-  width: 500px;
+  width: 1000px;
+}
+#errorAlert {
+  width: 1000px;
 }

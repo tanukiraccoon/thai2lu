@@ -46,6 +46,7 @@ def loo(text):
     # เปลี่ยนพยัญชนะต้น พยัญชนะท้าย วรรณยุกต์ ตามอักษรสูงกลางต่ำ และคำเป็นคำตาย
     first = front_rules(first, vowels_short_mono)
     print("Step 4 : ", first)
+
     print("==========")
 
     # print('Word: ', l)  # ดอก ['d', 'ᴐː', 'k', '2']
@@ -82,7 +83,7 @@ def front_loo(text):
         text[0] = 'l'
 
     # ลบพยัญชนะควบกล้ำ
-    if text[1] in ['l', 'r']:
+    if text[1] in ['l', 'r', 'w']:
         text.pop(1)
     return text
 
@@ -146,16 +147,33 @@ def front_rules(text, vsm):
         text[-1] = ''
         # สระท้าย
     if len(text[-2]) > 1:
-        text[-2] = text[-2][0]
+        if text[-2][0] == "ือ":
+            text[-2] = 'ื'
+            text.insert(-1, 'อ')
+        elif text[-2][0] == "เา":
+            text[-2] = 'เ'
+            text.insert(-1, 'า')
+        else:
+            text[-2] = text[-2][0]
     # สระกลาง
     if len(text[-3]) > 1 and len(text) > 3:
-        text[-3] = text[-3][1]
+        if text[-3][1] == 'เิ' and text[-2] == 'ย':
+            text[-3] = 'เ'
+        else:
+            text[-3] = text[-3][1]
+    if text[1] == ' ':
+        text.pop(1)
+    # สลับตำแหน่งวรณยุกต์
+    text.insert(2, text[-1])
+    text.pop(-1)
     # สลับตำแหน่งสระ
     if text[1][0] in ['แ', 'เ', 'โ', 'ไ']:
         text[0], text[1] = text[1][0], text[1].replace(text[1][0], text[0])
     # สลับวรรณยุกต์
-    if text[-2] in ["า", "ะ"]:
+    if text[-2] in ["า", "ะ", "อ"]:
         text[-2], text[-1] = text[-1], text[-2]
+    elif text[1] in ["า", "ะ", "อ", "ว"]:
+        text[1], text[2] = text[2], text[1]
 
     return text
 
@@ -195,7 +213,7 @@ def back_rules(text, vsm):
                 text[-1] = ''
 
     # อักษรกลางคำตาย ต้องแก้วรรณยุกต์
-    if text[-2] in ['ก', 'บ', 'ด']:
+    if text[-2] in ['ก', 'บ', 'ด', 'ิ', 'ุ']:
         text[-1] = ''
         # สระท้าย
     if len(text[-2]) > 1:
@@ -203,6 +221,9 @@ def back_rules(text, vsm):
     # สระกลาง
     if len(text[-3]) > 1 and len(text) > 3:
         text[-3] = text[-3][1]
+    # สลับตำแหน่งวรณยุกต์
+    text.insert(2, text[-1])
+    text.pop(-1)
     return text
 
 
@@ -210,6 +231,7 @@ def use_loo(text):
     try:
         # text = input("พิมพ์ข้อความที่ต้องการแปลงเป็นภาษาลู: ")
         text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
+        print("Step -1 : ", text)
         text = re.split('\.| ', text)  # แบ่งคำโดยแปลงเป็น lists
         text.pop(-1)
         print("Step 0 : ", text)
@@ -224,5 +246,5 @@ def use_loo(text):
             x += str1 + ' ' + str2 + ' '
             print(x)
     except:
-        x = "กรุณาพิมพ์คำศัพท์ให้ถูกต้อง"
+        x = "error"
     return (x)
