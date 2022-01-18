@@ -15,7 +15,7 @@ def process():
     if name:
         words = name
         result = use_loo(words)
-        if result == "error":
+        if result == "error error ":
             return jsonify({'error': 'Missing data!'})
         else:
             return jsonify({'result': result})

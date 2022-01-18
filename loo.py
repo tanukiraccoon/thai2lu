@@ -34,31 +34,32 @@ def loo(text):
     first = re.findall(regex, text)
     last = re.findall(regex, text)
     print("Step 1 : ", first)
+    if first:
+        # ทำลูหน้า เปลี่ยนพยัญชนะต้นเป็น l, r หรือ s
+        first = front_loo(first)
+        print("Step 2 : ", first)  # หลอก ['l', 'ᴐː', 'k', '2']
 
-    # ทำลูหน้า เปลี่ยนพยัญชนะต้นเป็น l, r หรือ s
-    first = front_loo(first)
-    print("Step 2 : ", first)  # หลอก ['l', 'ᴐː', 'k', '2']
+        # เปลี่ยน ipa เป็นตัวอักษรไทย
+        first = ipa2thai(first, ipa)
+        print("Step 3 : ", first)
 
-    # เปลี่ยน ipa เป็นตัวอักษรไทย
-    first = ipa2thai(first, ipa)
-    print("Step 3 : ", first)
+        # เปลี่ยนพยัญชนะต้น พยัญชนะท้าย วรรณยุกต์ ตามอักษรสูงกลางต่ำ และคำเป็นคำตาย
+        first = front_rules(first, vowels_short_mono)
+        print("Step 4 : ", first)
 
-    # เปลี่ยนพยัญชนะต้น พยัญชนะท้าย วรรณยุกต์ ตามอักษรสูงกลางต่ำ และคำเป็นคำตาย
-    first = front_rules(first, vowels_short_mono)
-    print("Step 4 : ", first)
+        print("==========")
 
-    print("==========")
-
-    # print('Word: ', l)  # ดอก ['d', 'ᴐː', 'k', '2']
-    last = back_loo(last, vowels_syl, vowels_dip, vowels_long_mono,
-                    vowels_short_mono)  # ดูก ['d', 'uː', 'k', '2']
-    print("Step 2 : ", last)
-    last = ipa2thai(last, ipa)
-    print("Step 3 : ", last)
-    last = back_rules(last, vowels_short_mono)
-    print("Step 4 : ", last)
-    print("==========")
-    return (first, last)
+        # print('Word: ', l)  # ดอก ['d', 'ᴐː', 'k', '2']
+        last = back_loo(last, vowels_syl, vowels_dip, vowels_long_mono,
+                        vowels_short_mono)  # ดูก ['d', 'uː', 'k', '2']
+        print("Step 2 : ", last)
+        last = ipa2thai(last, ipa)
+        print("Step 3 : ", last)
+        last = back_rules(last, vowels_short_mono)
+        print("Step 4 : ", last)
+        print("==========")
+        return (first, last)
+    return("error", "error")
 
 
 def ipa2thai(text, dictionary):
@@ -229,23 +230,20 @@ def back_rules(text, vsm):
 
 
 def use_loo(text):
-    try:
-        # text = input("พิมพ์ข้อความที่ต้องการแปลงเป็นภาษาลู: ")
-        text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
-        print("Step -1 : ", text)
-        text = re.split('\.| ', text)  # แบ่งคำโดยแปลงเป็น lists
-        text.pop(-1)
-        print("Step 0 : ", text)
-        print("==========")
-        x = ''
-        for syllable in text:
-            r, l = loo(syllable)
-            str1 = ''
-            str2 = ''
-            str1 = str1.join(r)
-            str2 = str2.join(l)
-            x += str1 + ' ' + str2 + ' '
-            print(x)
-    except:
-        x = "error"
+    # text = input("พิมพ์ข้อความที่ต้องการแปลงเป็นภาษาลู: ")
+    text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
+    print("Step -1 : ", text)
+    text = re.split('\.| ', text)  # แบ่งคำโดยแปลงเป็น lists
+    text.pop(-1)
+    print("Step 0 : ", text)
+    print("==========")
+    x = ''
+    for syllable in text:
+        r, l = loo(syllable)
+        str1 = ''
+        str2 = ''
+        str1 = str1.join(r)
+        str2 = str2.join(l)
+        x += str1 + ' ' + str2 + ' '
+        print(x)
     return (x)
