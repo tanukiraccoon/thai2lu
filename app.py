@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify
-from loo import use_loo
+# from loo import use_loo
 from tltk.nlp import th2ipa
-import gc
 
 app = Flask(__name__)
 
@@ -16,8 +15,7 @@ def process():
     name = request.form['name']
     if name:
         words = name
-        words = th2ipa(words)  # แปลงภาษาไทยเป็น ipa
-        gc.collect()
+        # words = th2ipa(words)  # แปลงภาษาไทยเป็น ipa
         result = use_loo(words)
         if result == "error error ":
             return jsonify({'error': 'Missing data!'})
