@@ -25,8 +25,9 @@ def loo(text):
     tones = {'1': '', '2': '่', '3': '้', '4': '๊', '5': '๋'}
 
     # Merge Dictionary
-    ipa = {**consonants, **vowels_syl, **vowels_dip, **
-           vowels_long_mono, **vowels_short_mono, **tones}
+    # ipa = {**consonants, **vowels_syl, **vowels_dip, **
+    #        vowels_long_mono, **vowels_short_mono, **tones}
+    ipa = consonants | vowels_syl | vowels_dip | vowels_long_mono | vowels_short_mono | tones
     # regex = re.compile('|'.join(map(re.escape, ipa)))
     regex = '|'.join(list(ipa.keys()))
 
