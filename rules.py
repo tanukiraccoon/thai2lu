@@ -1,3 +1,6 @@
+from tltk.nlp import th2ipa
+
+
 def front_rules(text, vsm):
 
     # เปลี่ยนพยัญชนะท้าย ต เป็น ด // รอเขียนอัลกอรืทึมใหม่

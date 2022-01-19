@@ -1,4 +1,4 @@
-from tltk.nlp import th2ipa
+
 import re
 
 
