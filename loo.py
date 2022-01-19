@@ -1,4 +1,5 @@
-# from tltk.nlp import th2ipa
+from tltk.nlp import th2ipa
+import nltk
 import re
 
 
@@ -25,9 +26,8 @@ def loo(text):
     tones = {'1': '', '2': '่', '3': '้', '4': '๊', '5': '๋'}
 
     # Merge Dictionary
-    # ipa = {**consonants, **vowels_syl, **vowels_dip, **
-    #        vowels_long_mono, **vowels_short_mono, **tones}
-    ipa = consonants | vowels_syl | vowels_dip | vowels_long_mono | vowels_short_mono | tones
+    ipa = {**consonants, **vowels_syl, **vowels_dip, **
+           vowels_long_mono, **vowels_short_mono, **tones}
     # regex = re.compile('|'.join(map(re.escape, ipa)))
     regex = '|'.join(list(ipa.keys()))
 
@@ -232,7 +232,7 @@ def back_rules(text, vsm):
 
 def use_loo(text):
     # text = input("พิมพ์ข้อความที่ต้องการแปลงเป็นภาษาลู: ")
-    # text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
+    text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
     print("Step -1 : ", text)
     text = re.split('\.| ', text)  # แบ่งคำโดยแปลงเป็น lists
     text.pop(-1)
