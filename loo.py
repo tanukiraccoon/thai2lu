@@ -1,4 +1,4 @@
-from tltk.nlp import th2ipa
+# from tltk.nlp import th2ipa
 import re
 
 
@@ -232,7 +232,7 @@ def back_rules(text, vsm):
 
 def use_loo(text):
     # text = input("พิมพ์ข้อความที่ต้องการแปลงเป็นภาษาลู: ")
-    text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
+    # text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
     print("Step -1 : ", text)
     text = re.split('\.| ', text)  # แบ่งคำโดยแปลงเป็น lists
     text.pop(-1)
