@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from loo import use_loo
-
+import os
+import psutil
 app = Flask(__name__)
 
 
@@ -15,6 +16,7 @@ def process():
     if name:
         words = name
         result = use_loo(words)
+        print(psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
         if result == "error error ":
             return jsonify({'error': 'Missing data!'})
         else:
