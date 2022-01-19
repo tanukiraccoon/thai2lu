@@ -1,3 +1,4 @@
+from tltk.nlp import th2ipa
 import re
 
 
@@ -37,15 +38,12 @@ def loo(text):
         # ทำลูหน้า เปลี่ยนพยัญชนะต้นเป็น l, r หรือ s
         first = front_loo(first)
         print("Step 2 : ", first)  # หลอก ['l', 'ᴐː', 'k', '2']
-
         # เปลี่ยน ipa เป็นตัวอักษรไทย
         first = ipa2thai(first, ipa)
         print("Step 3 : ", first)
-
         # เปลี่ยนพยัญชนะต้น พยัญชนะท้าย วรรณยุกต์ ตามอักษรสูงกลางต่ำ และคำเป็นคำตาย
         first = front_rules(first, vowels_short_mono)
         print("Step 4 : ", first)
-
         print("==========")
 
         # print('Word: ', l)  # ดอก ['d', 'ᴐː', 'k', '2']
@@ -230,7 +228,7 @@ def back_rules(text, vsm):
 
 def use_loo(text):
     # text = input("พิมพ์ข้อความที่ต้องการแปลงเป็นภาษาลู: ")
-    # text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
+    text = th2ipa(text)  # แปลงภาษาไทยเป็น ipa
     print("Step -1 : ", text)
     text = re.split('\.| ', text)  # แบ่งคำโดยแปลงเป็น lists
     text.pop(-1)
