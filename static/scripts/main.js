@@ -1,22 +1,40 @@
 $(document).ready(function () {
-  $("form").on("submit", function (event) {
+  $("form").submit(function (event) {
     $.ajax({
-      data: {
-        name: $("#wordInput").val(),
-      },
       type: "POST",
       url: "/process",
+      data: {
+        text: $(".search_input").val(),
+      },
     }).done(function (data) {
       if (data.error) {
-        $("#errorAlert").show();
-        $("#successAlert").hide();
+        $("#error").show();
+        $("#success").hide();
       } else {
-        $("#successAlert").show();
+        $("#success").show();
         $("#result").text(data.result);
-        $("#errorAlert").hide();
+        $("#error").hide();
       }
     });
-
+    event.preventDefault();
+  });
+  $(".search_icon").click(function (event) {
+    $.ajax({
+      type: "POST",
+      url: "/process",
+      data: {
+        text: $(".search_input").val(),
+      },
+    }).done(function (data) {
+      if (data.error) {
+        $("#error").show();
+        $("#success").hide();
+      } else {
+        $("#success").show();
+        $("#result").text(data.result);
+        $("#error").hide();
+      }
+    });
     event.preventDefault();
   });
 });

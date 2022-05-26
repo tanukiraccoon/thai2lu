@@ -58,9 +58,11 @@ html.is-animating .transition-fade {
   text-decoration: none;
 }
 
-#successAlert {
-  width: 1000px;
+#success {
+  margin-left: 5%;
+  margin-right: 5%;
 }
-#errorAlert {
-  width: 1000px;
+#error {
+  margin-left: 5%;
+  margin-right: 5%;
 }
