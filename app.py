@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, jsonify
-from loo import use_loo
+from lu import th2lu
 import os
 import psutil
+
 app = Flask(__name__)
 
 
@@ -12,15 +13,10 @@ def index():
 
 @app.route('/process', methods=['POST'])
 def process():
-    name = request.form['name']
-    if name:
-        words = name
-        result = use_loo(words)
+    if text := str(request.form['text']):
+        result = th2lu(text)
         print(psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2)
-        if result == "error error ":
-            return jsonify({'error': 'Missing data!'})
-        else:
-            return jsonify({'result': result})
+        return jsonify({'result': result})
     return jsonify({'error': 'Missing data!'})
 
 
