@@ -1,3 +1,4 @@
 [submodule "thai-ipa-transcriber"]
 	path = thai-ipa-transcriber
 	url = https://github.com/tanukiraccoon/thai-ipa-transcriber
+ 	branch = main
